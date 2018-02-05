@@ -1,4 +1,4 @@
-#Docker para ambiente php
+# Docker para ambiente php
 
 > docker run -d -p 8084:8085 -v /Users/vinicius/Projetos/docker/php/www:/usr/src/wd -w /usr/src/wd php php -S 0.0.0.0:8085
 
@@ -9,7 +9,7 @@
 
 ===================================================================
 
-#Criando um Dockerfile
+# Criando um Dockerfile
 
 * Crie um arquivo com o nome Dockerfile
 * Cole o código abaixo no arquivo
@@ -25,4 +25,4 @@
  > docker run -it --rm --name my-running-app my-php-app
  
  
-#Docker para ambiente php com apache
+# Docker para ambiente php com apache
