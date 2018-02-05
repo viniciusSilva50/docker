@@ -26,3 +26,9 @@
  
  
 # Docker para ambiente php com apache
+
+
+# Sites de referencia
+
+* https://docs.docker.com/samples/library/php/
+* https://docs.docker.com/engine/reference/commandline/cli/
