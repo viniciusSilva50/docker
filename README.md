@@ -63,11 +63,8 @@
 <h2>Sites de referência</h2>
 
 <ul>
-    <li><a href="https://docs.docker.com/samples/library/php/" target="_blank">https://docs.docker.com/samples/library/php/</a></li>
-    <li><a href="" target="_blank"></a></li>
-    <li><a href="" target="_blank"></a></li>
-    <li><a href="" target="_blank"></a></li>
-    <li><a href="" target="_blank"></a></li>
-    <li><a href="" target="_blank"></a></li>
-    <li><a href="" target="_blank"></a></li>    
+    <li><a target="_blank" href="https://github.com/mysql/mysql-docker">https://github.com/mysql/mysql-docker</a></li>
+    <li><a target="_blank" href="https://docs.docker.com/engine/reference/builder/#usage">https://docs.docker.com/engine/reference/builder/#usage</a></li>
+    <li><a target="_blank" href="https://docs.docker.com/engine/reference/run/">https://docs.docker.com/engine/reference/run/</a></li>
+    <li><a target="_blank" href="https://stackoverflow.com/questions/33827342/how-to-connect-mysql-workbench-to-running-mysql-inside-docker">https://stackoverflow.com/questions/33827342/how-to-connect-mysql-workbench-to-running-mysql-inside-docker</a></li>     
 </ul>
