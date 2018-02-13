@@ -47,8 +47,8 @@
                     <li><pre><code>grant all privileges on *.* to 'user'@'%' with grant option;</code></pre></li>
                     <li><pre><code>flush privileges;</code</pre></li>
                 </ol>
-                    <p>Desconecte do mysql server com o comando.</p>
-                    <pre><code>exit;</code</pre>                             
+                <p>Desconecte do mysql server com o comando.</p>
+                <pre><code>exit;</code</pre>                             
             </li>
         </ol>
     </li>   
