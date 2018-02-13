@@ -46,11 +46,9 @@
                     <li><pre><code>create user 'user'@'%' identified by 'pass';</code></pre></li>
                     <li><pre><code>grant all privileges on *.* to 'user'@'%' with grant option;</code></pre></li>
                     <li><pre><code>flush privileges;</code</pre></li>
-                </ol>    
-                <div>
+                </ol>
                     <p>Desconecte do mysql server com o comando.</p>
-                    <pre><code>exit;</code</pre>
-                </div>                
+                    <pre><code>exit;</code</pre>                             
             </li>
         </ol>
     </li>   
