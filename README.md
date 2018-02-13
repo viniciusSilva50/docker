@@ -44,7 +44,7 @@
                 <p>Após estar conectado vamos criar um usuários com todos os privilégios e com todas as portas abertas. Segue os comandos a serem executados, é importante que os comandos sejam executados na ordem determinada e que todos tenham sucesso.</p>
                 <pre><code>create user 'user'@'%' identified by 'pass';</code></pre>
                 <pre><code>grant all privileges on *.* to 'user'@'%' with grant option;</code></pre>
-                <pre><code>flush privileges;</code</pre>
+                <pre><code>flush privileges;</code></pre>
                 <pre><code>exit;</code></pre>                    
             </li>
         </ol>
