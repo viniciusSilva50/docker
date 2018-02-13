@@ -52,18 +52,14 @@
             </li>
         </ol>
     </li>   
-    <li>
-        <div>
-            <p>Desconecte-se do container com o comando.</p>
-            <pre><code>exit</code</pre>
-        </div>                
+    <li>       
+        <p>Desconecte-se do container com o comando.</p>
+        <pre><code>exit</code</pre>
     </li>
     <li>
-        <div>
-            <p>E por fim reinicine o container.</p>
-            <pre><code>docker stop -t0 mysql</code</pre>
-            <pre><code>docker start mysql</code</pre>
-        </div>                
+        <p>E por fim reinicine o container.</p>
+        <pre><code>docker stop -t0 mysql</code</pre>
+        <pre><code>docker start mysql</code</pre>
     </li>
 </ul>
 
