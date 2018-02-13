@@ -13,7 +13,7 @@
         <p>Agora é preciso gerar um container executável com a imagem criada, execute o comando docker run. Segue um exemplo abaxo.</p>
         <pre><code>docker run -d --name mysql -p 127.0.0.1:3306:3306 mysql-docker</code></pre>
         <strong>Vamos entender o que o comando run faz junto com cada argumento passado.</strong>
-        <ol type="1">
+        <ol>
             <li>O argumento -d é para liberar o terminal após executar o docker run.</li>
             <li>O argumento --name seguido de um qualquer, vai criar o apelido para nosso container.</li>
             <li>O argumento -p determina qual o ip e porta estamos vinculando de máquina local a porta de nosso container.</li>
@@ -23,7 +23,7 @@
     <li>
         <p>Agora é preciso entrar no container para criar um usuário que permita a conexão remota ao nosso server mysql.</p>
         <strong>OBS: Acredito que posso ser feito de outra forma, mas preciso estudar mais sobre (13/02/2018).</strong>
-        <ol type="1">
+        <ol>
             <li>
                 <p>Primeiro verificar se o container criado no comando docker run esta em execução.</p>                
                 <pre><code>docker ps</code></pre>
