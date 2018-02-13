@@ -45,7 +45,7 @@
                 <pre><code>create user 'user'@'%' identified by 'pass';</code></pre>
                 <pre><code>grant all privileges on *.* to 'user'@'%' with grant option;</code></pre>
                 <pre><code>flush privileges;</code</pre>
-                <pre><code>exit;</code</pre>                    
+                <pre><code>exit;</code></pre>                    
             </li>
         </ol>
     </li>   
