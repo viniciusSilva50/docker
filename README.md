@@ -15,7 +15,7 @@
         <strong>Vamos entender o que o comando run faz junto com cada argumento passado.</strong>
         <ol>
             <li>O argumento -d é para liberar o terminal após executar o docker run.</li>
-            <li>O argumento --name seguido de um qualquer, vai criar o apelido para nosso container.</li>
+            <li>O argumento --name seguido de um texto qualquer, vai criar o apelido para nosso container.</li>
             <li>O argumento -p determina qual o ip e porta estamos vinculando de máquina local a porta de nosso container.</li>
             <li>E por fim indicamos qual o imagem que sera vinculada com nosso container.</li>
         </ol>        
