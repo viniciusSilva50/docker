@@ -1,0 +1,107 @@
+<h3>Criação de nova campanha</h3>
+<div class="ui-g ui-fluid">
+  <form [formGroup]="newBannerForm" class="ui-g-6">
+
+    <div class="card card-w-title">
+        <h1>Informações da Campanha</h1>
+        <div class="ui-g form-group">
+            <div class="ui-g-12">
+                <p-dropdown [options]="bannerTypes" formControlName="type" name="type" [autoWidth]="false" (onChange)="handleTypeSelection($event.value)"></p-dropdown>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <span class="md-inputfield">
+                    <input type="text" formControlName="bannerTitle" name="bannerTitle" pInputText>
+                    <label>Titulo</label>
+                </span>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <span class="md-inputfield">
+                    <input type="text" formControlName="actionUrl" name="actionUrl" pInputText>
+                    <label>Url de Direcionamento</label>
+                </span>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <span class="md-inputfield">
+                    <textarea [rows]="3" [cols]="30" formControlName="text" name="text" [autoResize]="true" placeholder="Descreva as informações da campanha" pInputTextarea></textarea>
+                </span>
+            </div>
+            <div class="ui-g-12 ui-md-6" *ngIf="bannerFileParams.currentLogolUrl == null && newBannerForm.controls['type'].value">
+                <app-image-uploader (onSelect)="checkImageResponse($event)" (onSaveClick)="saveImage()" (onClearClick)="clearImage()" [imageMinHeight]="bannerHeight" [imageMaxHeight]="bannerHeight" [imageMinWidth]="bannerWidht" [imageMaxWidth]="bannerWidht" fileSize="3000000" componentTitle="Banner"></app-image-uploader>
+            </div>
+            <div class="ui-g-12 ui-md-6" *ngIf="bannerFileParams.currentLogolUrl != null">
+                <p-panel>
+                    <p-header>
+                        <div class="ui-helper-clearfix">
+                            <span class="ui-panel-title">Banner</span>
+                        </div>
+                    </p-header>
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <img src="{{bannerFileParams.currentLogolUrl}}" style="width:100%;">
+                        </div>
+                    </div>
+                    <button pButton type="button" icon="ui-icon-delete" class="ui-button-warning" (click)="removeCurrentLogo()"></button>
+                </p-panel>
+            </div>
+        </div>
+    </div>
+
+
+      <div class="card card-w-title">
+        <h1>Agendamento da Publicação</h1>
+        <div class="ui-g form-group">
+            <div class="ui-g-12 ui-md-4">
+                <p-checkbox name="hasStartDate" formControlName="hasStartDate" binary="true" label="Definir uma data de início" (onChange)="handleStartDate($event)"></p-checkbox>
+            </div>
+            <div class="ui-g-12 ui-md-8" *ngIf="!newBannerForm.controls['hasStartDate'].value">
+                <span class="md-inputfield">
+                    <span>A campanha será publicada imediatamente</span>
+                </span>
+            </div>
+            <div class="ui-g-12 ui-md-8" *ngIf="newBannerForm.controls['hasStartDate'].value">
+              <p-calendar id="datetime" showIcon="true" name="startPublishDate" formControlName="startPublishDate" dateFormat="dd/mm/yy" [minDate]="timeNow" [defaultDate]="timeNow" showTime="true" placeholder="Escolha a data" (onSelect)="checkScheduleDate()"></p-calendar>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <p-checkbox name="hasEndDate" formControlName="hasEndDate" binary="true" label="Definir uma data de fim" (onChange)="handleEndDate($event)"></p-checkbox>
+            </div>
+            <div class="ui-g-12 ui-md-8" *ngIf="!newBannerForm.controls['hasEndDate'].value">
+                <span class="md-inputfield">
+                    <span>A campanha ficará ativa até uma desativação manual</span>
+                </span>
+            </div>
+            <div class="ui-g-12 ui-md-8" *ngIf="newBannerForm.controls['hasEndDate'].value">
+              <p-calendar id="datetime" showIcon="true" name="endPublishDate" formControlName="endPublishDate" dateFormat="dd/mm/yy" [minDate]="minEndDate" [defaultDate]="minEndDate" showTime="true" placeholder="Escolha a data" (onSelect)="checkScheduleDate()"></p-calendar>
+            </div>
+        </div>
+      </div>
+
+      <div class="ui-g-12">
+          <div class="ui-g-6">
+              <button pButton type="text" (click)="clearForm()" icon="fa-close" iconPos="left" label="Cancel" class="ui-button-danger"></button>
+          </div>
+          <div class="ui-g-6">
+              <button pButton type="text" (click)="saveForm()" icon="fa-check" iconPos="right" label="Save" class="ui-button-success" [disabled]="!newBannerForm.valid || bannerFileParams.currentLogolUrl == null || !isScheduleValid"></button>
+          </div>
+      </div>
+  </form>
+
+  <div class="ui-g-6" *ngIf="bannerMaskContainerStyle != null">
+    <div class="card card-w-title">
+        <h1>Verificação da área de segurança</h1>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <span align="justify">
+                    <p>Certifique-se que a área útil da imagem (detalhes importantes, textos etc) estejam fora da área de recorte máximo (laterais opacas).</p>
+                    <p>Devido ao tamanho de alguns devices o aplicativo recorta proporcionamente a imagem nas laterias para ficar em tela cheia e não distorcê-la.</p>
+                    <p>A área de segurança apresentada é considerada como o "pior caso". Na maioria dos devices o recorte será menor do que o apresentado.</p>
+                </span>
+            </div>
+            <div class="ui-g-8">
+                <div [ngStyle]="bannerMaskContainerStyle">
+                    <div class="trBorder">
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>

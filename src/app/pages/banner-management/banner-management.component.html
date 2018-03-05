@@ -1,0 +1,70 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-md-8">
+    <span class="md-inputfield">
+      <h3>Gerenciamento de Banners</h3>
+    </span>
+  </div>
+  <div class="ui-g-12 ui-md-4">
+    <div class="ui-g">
+        <div class="ui-g-6">
+            <button pButton type="text" (click)="toogleBannerTable()" icon="fa-check" iconPos="left" label="{{isShowingInactives ? 'Mostrar Ativos' : 'Mostrar Desativados'}}" class="ui-button-primary"></button>
+        </div>
+        <div class="ui-g-6">
+            <button pButton type="text" (click)="createBanner()" icon="fa-plus" iconPos="left" label="Adicionar Campanha" class="ui-button-primary"></button>
+        </div>
+    </div>
+  </div>    
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+          <div class="ui-g form-group">
+            <div class="ui-g-12 ui-md-9">
+            </div>
+            <div class="ui-g-12 ui-md-3">
+              <span class="md-inputfield">
+                <input #gb type="text" placeholder="Filtar" pInputText>
+              </span>
+            </div>
+          </div>
+            <p-dataTable [value]="banners" [paginator]="true" [rows]="10" [responsive]="true" [globalFilter]="gb" emptyMessage="Nenhum registro encontrado">
+                <p-header>{{isShowingInactives ? 'Campanhas Inativas':'Campanhas Ativas'}}</p-header>
+                <p-column field="bannerId" header="Banner">
+                  <ng-template let-col let-banner="rowData" pTemplate="body">
+                      <img style="height:100px; width:100px;" src="{{banner.type == 'WELCOME' ? banner.webAppHalfImageUrl : banner.webAppFullImageUrl}}"/>
+                  </ng-template>                  
+                </p-column>
+                <p-column field="type" header="Tipo" [sortable]="true">
+                  <ng-template let-col let-banner="rowData" pTemplate="body">
+                      <span style="font-size:1rem">{{banner[col.field] == 'WELCOME' ? 'Welcome' : banner[col.field] == 'LAUNCH' ? 'Lançamento' : 'Promoção'}}</span>
+                  </ng-template>
+                </p-column>
+                <p-column field="title" header="Nome da Campanha"></p-column>
+                <p-column field="startPublishDate" header="Inicio da Publicação">
+                  <ng-template let-col let-banner="rowData" pTemplate="body">
+                      <span style="font-size:1rem">{{banner[col.field] == null ? 'Publicado na criação' : banner[col.field] | date:'dd/MM/yyyy HH:mm'}}</span>
+                  </ng-template>
+                </p-column>
+                <p-column field="endPublishDate" header="Fim da Publicação">
+                  <ng-template let-col let-banner="rowData" pTemplate="body">
+                      <span style="font-size:1rem">{{banner[col.field] == null ? 'Sem data de finalização' : banner[col.field] | date:'dd/MM/yyyy HH:mm'}}</span>
+                  </ng-template>
+                </p-column>
+                <p-column field="isScheduled" header="Status da Publicação">
+                  <ng-template let-col let-banner="rowData" pTemplate="body">
+                      <span style="font-size:1rem">{{banner[col.field] == null || banner[col.field] == false ? 'Publicado' : 'Agendado'}}</span>
+                  </ng-template>
+                </p-column>
+                <p-column header="">
+                  <ng-template let-col let-banner="rowData" pTemplate="body">
+                      <p style="font-size:1rem" (click)="editBanner(banner)" style="cursor:pointer"><strong><i class="material-icons">mode_edit</i>&nbsp;&nbsp;{{isShowingInactives ? 'Reativar':'Editar'}}</strong></p>
+                  </ng-template>
+                </p-column>
+                <p-column header="" *ngIf="!isShowingInactives">
+                  <ng-template let-col let-banner="rowData" pTemplate="body">
+                      <p style="font-size:1rem" (click)="finishBanner(banner)" style="cursor:pointer"><strong><i class="material-icons">highlight_off</i>&nbsp;&nbsp;Finalizar campanha</strong></p>
+                  </ng-template>
+                </p-column>
+            </p-dataTable>
+            <p-confirmDialog width="600" acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>MAMK - Timeline post</title>
+  </head>
+  <body style="margin: 0;">
+    <script>
+        function getParameterByName(name, url) {
+          if (!url) url = window.location.href;
+          name = name.replace(/[\[\]]/g, "\\$&");
+          var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+              results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+  
+        var embeddedUrlParameter = getParameterByName('embeddedUrl');
+        console.log('view-timeline-post', 'embeddedUrlParameter', embeddedUrlParameter);
+  
+        if (embeddedUrlParameter.includes('youtube')) {
+          embeddedUrlParameter = embeddedUrlParameter + '&showInfo=0autoHide=1&modestbranding=1&wmode=transparent';
+        }
+        var widthParameter = getParameterByName('width');
+        console.log('view-timeline-post', 'widthParameter', widthParameter);
+  
+        var heightParameter = getParameterByName('height');
+        console.log('view-timeline-post', 'heightParameter', heightParameter);
+  
+        document.write('<iframe src="' + embeddedUrlParameter + '" width="' + (widthParameter) + '" height="' + heightParameter + '" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowscriptaccess="always" allowfullscreen="allowfullscreen"></iframe>');
+      </script>
+    </body>
+</html>

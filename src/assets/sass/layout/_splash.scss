@@ -1,0 +1,57 @@
+.splash-screen {
+    background-color: black;
+    // background: url("./assets/images/clouds_bg.jpg");
+    background-size: cover;
+    height: 100%;
+    
+    .splash-container {
+        padding-top: 250px;
+        width: 371px;
+        margin: 0 auto;
+        text-align: center
+    }
+    
+    .logo {
+        display: inline-block;
+        vertical-align: middle;
+        width: 371px;
+        height: 81px;
+        background: url("./assets/images/logo2x.png") top left no-repeat;
+        background-size: 371px 81px;
+    }
+    
+    .load-bar {
+      position: relative;
+      margin-top: 20px;
+      width: 100%;
+      height: 6px;
+      background-color: #ffffff;
+    }
+    
+    .bar {
+      content: "";
+      display: inline;
+      position: absolute;
+      width: 0;
+      height: 100%;
+      left: 50%;
+      text-align: center;
+    }
+    .bar:nth-child(1) {
+      background-color: $primaryColor;
+      animation: loading 3s linear infinite;
+    }
+    .bar:nth-child(2) {
+      background-color: $accentDarkColor;
+      animation: loading 3s linear 1s infinite;
+    }
+    .bar:nth-child(3) {
+      background-color: $accentColor;
+      animation: loading 3s linear 2s infinite;
+    }
+    @keyframes loading {
+        from {left: 50%; width: 0;z-index:100;}
+        33.3333% {left: 0; width: 100%;z-index: 10;}
+        to {left: 0; width: 100%;}
+    }
+}

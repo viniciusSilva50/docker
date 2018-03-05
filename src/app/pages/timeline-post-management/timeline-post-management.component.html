@@ -1,0 +1,77 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-md-8">
+    <span class="md-inputfield">
+      <h3>Gerenciamento de Posts da Timeline</h3>
+    </span>
+  </div>
+  <div class="ui-g-12 ui-md-4">
+    <div class="ui-g">
+        <div class="ui-g-6">
+            <button pButton type="text" (click)="toogleTimelinePostTable()" icon="fa-check" iconPos="left" label="{{isShowingInactives ? 'Mostrar Ativos' : 'Mostrar Desativados'}}" class="ui-button-primary"></button>
+        </div>
+        <div class="ui-g-6">
+            <button pButton type="text" (click)="createTimelinePost()" icon="fa-plus" iconPos="left" label="Criar Post" class="ui-button-primary"></button>
+        </div>
+    </div>
+  </div>    
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+          <div class="ui-g form-group">
+            <div class="ui-g-12 ui-md-9">
+            </div>
+            <div class="ui-g-12 ui-md-3">
+              <span class="md-inputfield">
+                <input #gb type="text" placeholder="Filtar" pInputText>
+              </span>
+            </div>
+          </div>
+            <p-dataTable [value]="timelinePosts" [paginator]="true" [rows]="10" [responsive]="true" [globalFilter]="gb" emptyMessage="Nenhum registro encontrado">
+                <p-header>{{isShowingInactives ? 'Posts Inativos':'Posts Ativos'}}</p-header>
+                <p-column field="timelinePostId" header="Post">
+                  <ng-template let-col let-timelinePost="rowData" pTemplate="body">
+                    <span style="font-size:3rem"><i class="material-icons">{{timelinePost.postType == 'TEXT' ? 'format_align_left' : timelinePost.postType == 'EMBEDDED' ? 'code' : timelinePost.postType == 'VIDEO' ? 'movie': 'photo'}}</i></span>                    
+                  </ng-template>                  
+                </p-column>
+                <p-column field="postType" header="Tipo de Post" [sortable]="true">
+                  <ng-template let-col let-timelinePost="rowData" pTemplate="body">
+                      <span style="font-size:1rem">{{timelinePost[col.field] == 'TEXT' ? 'Texto' : timelinePost[col.field] == 'IMAGE' ? 'Imagem' : timelinePost[col.field] == 'VIDEO' ? 'Vídeo' : 'HTML Incorporado'}}</span>
+                  </ng-template>    
+                </p-column>
+                <p-column field="title" header="Título"></p-column>
+                <p-column field="consultantLevelFilter" header="Nível Mínimo da Consultora">
+                  <ng-template let-col let-timelinePost="rowData" pTemplate="body">
+                      <span style="font-size:1rem">{{timelinePost[col.field] == 0 ? 'Livre' : timelinePost[col.field]}}</span>
+                  </ng-template>           
+                </p-column>
+                <p-column field="startPublishDate" header="Inicio da Publicação">
+                  <ng-template let-col let-timelinePost="rowData" pTemplate="body">
+                      <span style="font-size:1rem">{{timelinePost[col.field] == null ? 'Publicado na criação' : timelinePost[col.field] | date:'dd/MM/yyyy HH:mm'}}</span>
+                  </ng-template>
+                </p-column>
+                <p-column field="endPublishDate" header="Fim da Publicação">
+                  <ng-template let-col let-timelinePost="rowData" pTemplate="body">
+                      <span style="font-size:1rem">{{timelinePost[col.field] == null ? 'Sem data de finalização' : timelinePost[col.field] | date:'dd/MM/yyyy HH:mm'}}</span>
+                  </ng-template>
+                </p-column>
+                <p-column field="isScheduled" header="Status da Publicação" *ngIf="!isShowingInactives">
+                  <ng-template let-col let-timelinePost="rowData" pTemplate="body">
+                      <span style="font-size:1rem">{{timelinePost[col.field] == null || timelinePost[col.field] == false ? 'Publicado' : 'Agendado'}}</span>
+                  </ng-template>
+                </p-column>
+                <p-column field="likeCount" header="Gostei"></p-column>
+                <p-column field="favoriteCount" header="Favorito"></p-column>
+                <p-column header="">
+                  <ng-template let-col let-timelinePost="rowData" pTemplate="body">
+                      <p style="font-size:1rem" (click)="editTimelinePost(timelinePost)" style="cursor:pointer"><strong><i class="material-icons">mode_edit</i>&nbsp;&nbsp;{{isShowingInactives ? 'Reativar':'Editar'}}</strong></p>
+                  </ng-template>
+                </p-column>
+                <p-column header="" *ngIf="!isShowingInactives">
+                  <ng-template let-col let-timelinePost="rowData" pTemplate="body">
+                      <p style="font-size:1rem" (click)="finishTimelinePost(timelinePost)" style="cursor:pointer"><strong><i class="material-icons">highlight_off</i>&nbsp;&nbsp;Finalizar post</strong></p>
+                  </ng-template>
+                </p-column>
+            </p-dataTable>
+            <p-confirmDialog width="600" acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
+        </div>
+    </div>
+</div>

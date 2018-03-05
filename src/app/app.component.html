@@ -1,0 +1,57 @@
+<!--App Global Messages-->
+<p-growl [value]="appMessages" life="4000"></p-growl>
+
+<!--Loading-->
+<p-dialog [(visible)]="isLoading" draggable="false" [(closable)]="!isLoading" modal="modal" width="400" responsive="true">
+    <div style="text-align:center;">
+        <span>Loading...</span>
+    </div>    
+    <div class="splash-screen">
+        <div class="load-bar">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+</p-dialog>
+
+<div class="layout-wrapper" [ngClass]="{'layout-compact':layoutCompact}">
+
+    <div #layoutContainer class="layout-container" 
+            [ngClass]="{'menu-layout-static': !isOverlay(),
+            'menu-layout-overlay': isOverlay(),
+            'layout-menu-overlay-active': overlayMenuActive,
+            'menu-layout-horizontal': isHorizontal(),
+            'layout-menu-static-inactive': staticMenuDesktopInactive,
+            'layout-menu-static-active': staticMenuMobileActive}">
+
+
+        <div *ngIf="isShowNavBar">
+            <app-topbar></app-topbar>
+        
+            <div class="layout-menu" [ngClass]="{'layout-menu-dark':darkMenu}" (click)="onMenuClick($event)">
+                <div #layoutMenuScroller class="nano">
+                    <div class="nano-content menu-scroll-content">
+                        <inline-profile *ngIf="profileMode=='inline'&&!isHorizontal()&&isShowNavBar"></inline-profile>
+                        <app-menu *ngIf="isShowNavBar" [reset]="resetMenu"></app-menu>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div [class]="isShowNavBar? 'layout-main': ''">
+            <router-outlet></router-outlet>
+            
+            <!--<div class="footer">
+                <div class="card clearfix">
+                    <span class="footer-text-left">Izzi Help - Powered By TARSIER.CODES</span>
+                    <span class="footer-text-right"><span class="ui-icon ui-icon-copyright"></span>  <span>All Rights Reserved</span></span>
+                </div>
+            </div>-->
+        </div>
+        
+        <div class="layout-mask"></div>
+    </div>
+
+</div>

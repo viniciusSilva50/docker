@@ -1,0 +1,38 @@
+<h3>Meu Perfil</h3>
+
+<div class="ui-g ui-fluid" *ngIf="loggedUser != null">
+  <div class="ui-g-12 ui-lg-3"></div>
+
+  <form [formGroup]="userForm" class="ui-g-12 ui-lg-6 form-group">
+    <div class="ui-g-12 ui-md-12">
+      <span class="md-inputfield">
+          <input type="text" formControlName="fullName" name="fullName" pInputText>
+          <label>Nome</label>
+      </span>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <p-checkbox name="isChangePassword" formControlName="isChangePassword" binary="true" label="Alterar senha"
+        (onChange)="handleChangePassword($event)"></p-checkbox>
+    </div>
+    <div class="ui-g-12 ui-md-6" *ngIf="userForm.controls['isChangePassword'].value">
+      <span class="md-inputfield">
+        <input type="password" formControlName="password" name="password" pPassword weakLabel="Fraca" mediumLabel="Média" strongLabel="Forte">
+        <label>Nova senha</label>
+      </span>
+    </div>
+    <div class="ui-g-12 ui-md-6" *ngIf="userForm.controls['isChangePassword'].value">
+      <span class="md-inputfield">
+        <input type="password" formControlName="confirmPassword" name="confirmPassword" pInputText>
+        <label>Confirmar nova senha</label>
+      </span>
+    </div>
+    <div class="ui-g-12">    
+      <div class="ui-g-6">
+        <button pButton type="text" (click)="cancel()" icon="fa-close" iconPos="left" label="Cancelar" class="ui-button-danger"></button>
+      </div>
+      <div class="ui-g-6">
+        <button pButton type="text" (click)="saveForm()" icon="fa-check" iconPos="right" label="Salvar" class="ui-button-success" [disabled]="!userForm.valid || !userForm.dirty"></button>
+      </div>
+    </div>
+  </form>
+</div>

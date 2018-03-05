@@ -1,0 +1,43 @@
+<h3>Gerenciamento da Imagem Splash</h3>
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-lg-3"></div>
+  <div class="ui-g-12 ui-lg-6 form-group">
+    <div class="ui-g-12 ui-lg-12">
+        <!--Company Information Card-->
+        <div class="card card-w-title">
+            <h1>{{landingFileParams.currentLogolUrl != null ? 'Imagem Splash atual' : 'Adcionar uma imagem Splash'}}</h1>
+            <div class="ui-g form-group">
+                <div class="ui-g-12 ui-lg-3"></div>
+                <div class="ui-g-12 ui-md-6" *ngIf="landingFileParams.currentLogolUrl == null">
+                    <app-image-uploader (onSelect)="checkImageResponse($event)" (onSaveClick)="saveImage()" (onClearClick)="clearImage()" [imageMinHeight]="landingHeight" [imageMaxHeight]="landingHeight" [imageMinWidth]="landingWidht" [imageMaxWidth]="landingWidht" fileSize="512000" componentTitle="Imagem"></app-image-uploader>
+                </div>
+                <div class="ui-g-12 ui-md-6" *ngIf="landingFileParams.currentLogolUrl != null">
+                    <p-panel>
+                        <p-header>
+                            <div class="ui-helper-clearfix">
+                                <span class="ui-panel-title">Imagem</span>
+                            </div>
+                        </p-header>
+                        <div class="ui-g">
+                            <div class="ui-g-12">
+                            <img src="{{landingFileParams.currentLogolUrl}}" style="width:100%;">
+                            </div>
+                        </div>
+                        <button pButton type="button" icon="ui-icon-delete" class="ui-button-warning" (click)="removeCurrentImage()"></button>
+                    </p-panel>
+                </div>
+                <div class="ui-g-12 ui-lg-3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-6">
+          <button pButton type="text" (click)="cancel()" icon="fa-close" iconPos="left" label="Cancel" class="ui-button-danger"></button>
+      </div>
+      <div class="ui-g-6" *ngIf="currentImage == null || (currentImage.imageUrl != landingFileParams.currentLogolUrl)">
+          <button pButton type="text" (click)="saveLandingImage()" icon="fa-check" iconPos="right" label="Save" class="ui-button-success" [disabled]="landingFileParams.currentLogolUrl == null"></button>
+      </div>
+  </div>
+  </div>
+  <div class="ui-g-12 ui-lg-3"></div>
+</div>

@@ -1,0 +1,137 @@
+<h3>Editar Post</h3>
+<div class="ui-g ui-fluid" *ngIf="timelinePost != null">
+  <div class="ui-g-12 ui-lg-3"></div>
+  <div class="ui-g-12 ui-lg-6 form-group">
+    <form [formGroup]="editTimelinePostForm" class="ui-g-12 ui-lg-12">
+        <!--Company Information Card-->
+        <div class="card card-w-title">
+            <h1>Informações do Post tipo {{timelinePost.postType == 'TEXT' ? 'Texto' : timelinePost.postType == 'IMAGE' ? 'Imagem' : timelinePost.postType == 'VIDEO' ? 'Vídeo' : 'Post de Link Embacado'}}</h1>
+            <div class="ui-g form-group">
+              <div class="ui-g-12">
+                <p-multiSelect [options]="consultantLevels" formControlName="consultantLevelFilter" name="consultantLevelFilter" defaultLabel="Livre para todos os níveis"></p-multiSelect>
+              </div>    
+              <div class="ui-g-12 ui-md-6">
+                <p-dropdown [options]="consultantStatuses" formControlName="consultantStatusFilter" name="consultantStatusFilter" [autoWidth]="false"></p-dropdown>
+              </div>
+            </div>
+        </div>
+        <div class="card card-w-title">
+          <h1>Conteúdo do Post</h1>
+          <div class="ui-g form-group">
+              <div class="ui-g-12 ui-md-6">
+                  <span class="md-inputfield">
+                      <input type="text" formControlName="timelinePostTitle" name="timelinePostTitle" pInputText>
+                      <label>Título</label>
+                  </span>
+              </div>
+              <div class="ui-g-12 ui-md-6">
+                  <span class="md-inputfield">
+                      <input type="text" formControlName="subTitle" name="subTitle" pInputText>
+                      <label>Sub Título</label>
+                  </span>
+              </div>
+              <div class="ui-g-12 ui-md-12" *ngIf="editTimelinePostForm.controls['postType'].value != 'EMBEDDED'">
+                <span class="md-inputfield">
+                    <textarea [rows]="3" [cols]="30" formControlName="body" name="body" [autoResize]="true" placeholder="Conteúdo do post" pInputTextarea></textarea>
+                </span>
+              </div>
+              <div class="ui-g-12">
+                  <span class="md-inputfield">
+                      <input type="text" formControlName="shareableUrl" name="shareableUrl" pInputText>
+                      <label>Url de Compartilhamento do Post</label>
+                  </span>
+              </div>
+              <div class="ui-g-12" *ngIf="editTimelinePostForm.controls['postType'].value == 'EMBEDDED'">
+                  <span class="md-inputfield">
+                      <input type="text" formControlName="embeddedCode" name="embeddedCode" pInputText>
+                      <label>Link do Post Externo Embarcavél</label>
+                  </span>
+              </div>
+              <!-- IMAGE -->
+              <div class="ui-g-12 ui-md-6" *ngIf="editTimelinePostForm.controls['imageUrl'].value != null">
+                  <p-panel>
+                      <p-header>
+                          <div class="ui-helper-clearfix">
+                              <span class="ui-panel-title">Imagem do Post</span>
+                          </div>
+                      </p-header>
+                      <div class="ui-g">
+                          <div class="ui-g-12">
+                          <img src="{{editTimelinePostForm.controls['imageUrl'].value}}" style="width:100%;">
+                          </div>
+                      </div>
+                  </p-panel>
+              </div>
+              <!-- VIDEO -->
+              <div class="ui-g-12 ui-md-6" *ngIf="editTimelinePostForm.controls['videoUrl'].value != null">
+                  <p-panel>
+                      <p-header>
+                          <div class="ui-helper-clearfix">
+                              <span class="ui-panel-title">Vídeo do Post</span>
+                          </div>
+                      </p-header>
+                      <div class="ui-g">
+                          <div class="ui-g-12">
+                              <video src="{{editTimelinePostForm.controls['videoUrl'].value}}" type="video/mp4" preload="auto" controls style="width: 100%;"></video>
+                          </div>
+                      </div>
+                  </p-panel>
+              </div>
+          </div>
+        </div>
+        <div class="card card-w-title">
+          <h1>Agendamento da Publicação</h1>
+          <div class="ui-g form-group">
+              <div class="ui-g-12 ui-md-4">
+                  <p-checkbox name="hasStartDate" formControlName="hasStartDate" binary="true" label="Definir uma data de início" (onChange)="handleStartDate($event)"></p-checkbox>
+              </div>
+              <div class="ui-g-12 ui-md-8" *ngIf="!editTimelinePostForm.controls['hasStartDate'].value">
+                  <span class="md-inputfield">
+                      <span>O post será publicado imediatamente</span>
+                  </span>
+              </div>
+              <div class="ui-g-12 ui-md-8" *ngIf="editTimelinePostForm.controls['hasStartDate'].value">
+                <p-calendar id="datetime" showIcon="true" name="startPublishDate" formControlName="startPublishDate" dateFormat="dd/mm/yy" [minDate]="timeNow" [defaultDate]="timeNow" showTime="true" placeholder="Escolha a data" (onSelect)="checkScheduleDate()"></p-calendar>
+              </div>
+              <div class="ui-g-12 ui-md-4">
+                  <p-checkbox name="hasEndDate" formControlName="hasEndDate" binary="true" label="Definir uma data de fim" (onChange)="handleEndDate($event)"></p-checkbox>
+              </div>
+              <div class="ui-g-12 ui-md-8" *ngIf="!editTimelinePostForm.controls['hasEndDate'].value">
+                  <span class="md-inputfield">
+                      <span>O post ficará ativo até uma desativação manual</span>
+                  </span>
+              </div>
+              <div class="ui-g-12 ui-md-8" *ngIf="editTimelinePostForm.controls['hasEndDate'].value">
+                <p-calendar id="datetime" showIcon="true" name="endPublishDate" formControlName="endPublishDate" dateFormat="dd/mm/yy" [minDate]="minEndDate" [defaultDate]="minEndDate" showTime="true" placeholder="Escolha a data" (onSelect)="checkScheduleDate()"></p-calendar>
+              </div>
+          </div>
+        </div>
+        <div class="card card-w-title">
+          <h1>Ação de Clique</h1>
+          <div class="ui-g form-group">
+              <div class="ui-g-12">
+                  <p-dropdown [options]="actionTypes" formControlName="actionType" name="actionType" [autoWidth]="false" (onChange)="handleActionTypeSelection($event.value)" placeholder="Selecione o tipo de ação"></p-dropdown>
+              </div>
+              <div class="ui-g-12" *ngIf="editTimelinePostForm.controls['actionType'].value == 'OPEN_APP_PAGE'">
+                  <p-dropdown [options]="appPages" formControlName="appPage" name="appPage" [autoWidth]="false" (onChange)="handleAppPagesSelection($event.value)"></p-dropdown>
+              </div>
+              <div class="ui-g-12" *ngIf="editTimelinePostForm.controls['actionType'].value == 'EXTERNAL_LINK'">
+                  <span class="md-inputfield">
+                      <input type="text" formControlName="actionUrl" name="actionUrl" pInputText>
+                      <label>Link do site externo</label>
+                  </span>
+              </div>
+          </div>
+        </div>
+    </form>
+    <div class="ui-g-12">
+        <div class="ui-g-6">
+            <button pButton type="text" (click)="cancel()" icon="fa-close" iconPos="left" label="Cancel" class="ui-button-danger"></button>
+        </div>
+        <div class="ui-g-6">
+            <button pButton type="text" (click)="saveForm()" icon="fa-check" iconPos="right" label="Save" class="ui-button-success" [disabled]="!editTimelinePostForm.valid || !isScheduleValid"></button>
+        </div>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-lg-3"></div>
+</div>

@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+@charset "UTF-8";
+
+$primaryColor: black;
+$primaryTextColor: white;
+$secondaryTextColor: black;
+$primaryDarkColor: black;
+$primaryLightColor: #424242;
+$accentColor: white;
+$accentDarkColor: #767676;
+$accentLightColor: #777777;
+$accentTextColor: #212121;
+$darkMenuBgColor: #424242;
+$darkMenuHoverColor: #676767;
+$darkMenuRouterLinkActiveColor: #676767;
+$lightMenuRouterLinkActiveColor: #979797;
+$horizontalLightMenuRouterLinkActiveColor: #D064A6;
+
+@import './assets/sass/_variables';
+@import './assets/sass/_mixins';
+@import './assets/sass/_fonts';
+
+@import './assets/sass/layout/_utils.scss';
+@import './assets/sass/layout/_splash.scss';
+@import './assets/sass/layout/_dashboard.scss';
+@import './assets/sass/layout/_login.scss';
+@import './assets/sass/layout/_exception.scss';
+@import './assets/sass/layout/_landing.scss';
+@import './assets/sass/layout/_main.scss';
+@import './assets/sass/layout/_compact.scss';
+
+@import './assets/sass/theme/_icons';
+@import './assets/sass/theme/_common';
+@import './assets/sass/theme/_forms';
+@import './assets/sass/theme/_panel';
+@import './assets/sass/theme/_data';
+@import './assets/sass/theme/_menu';
+@import './assets/sass/theme/_message';
+@import './assets/sass/theme/_overlay';
+@import './assets/sass/theme/_misc';

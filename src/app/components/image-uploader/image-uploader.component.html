@@ -1,0 +1,22 @@
+<p-panel>
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title">{{componentTitle}}</span><span class="ui-panel-title" style="color: red; font-weight: bold;" *ngIf="isRequired"> (obrigatório)</span>
+            <i class="material-icons" style="float:right;cursor: help" (mouseenter)="op1.show($event)" *ngIf="fileSpec != null">&#xE88E;</i>
+            <p-overlayPanel #op1 [showCloseIcon]="false" [dismissable]="true">
+                <p style="color: black">{{fileSpec}}</p>
+            </p-overlayPanel>
+        </div>
+    </p-header>
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <label class="uploader" ondragover="return false;" [class.loaded]="loaded" [style.outlineColor]="dragging ? activeColor : baseColor" (dragenter)="handleDragEnter()" (dragleave)="handleDragLeave()" (drop)="handleDrop($event)">
+                <i class="icon icon-upload material-icons" [style.color]="dragging ? ((imageSrc.length > 0) ? overlayColor : activeColor): ((imageSrc.length > 0) ? overlayColor : baseColor)">&#xE432;</i>
+                <img [src]="imageSrc" (load)="handleImageLoad()" [class.loaded]="imageLoaded"/>
+                <input type="file" name="file"(change)="handleInputChange($event)">
+            </label>
+        </div>
+    </div>
+    <button pButton type="button" icon="ui-icon-delete" class="ui-button-warning" *ngIf="loaded" (click)="clearImage()"></button>
+    <button pButton type="button" icon="ui-icon-save" class="ui-button-success" style="float: right;" *ngIf="loaded" (click)="saveImage()"></button>
+</p-panel>

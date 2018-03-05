@@ -1,0 +1,9 @@
+.trBorder {
+    height: 422px;
+    border-right-color: rgba(255, 255, 255, 0.5);
+    border-right-style: solid;
+    border-right-width: 62px;
+    border-left-color: rgba(255, 255, 255, 0.5);
+    border-left-style: solid;
+    border-left-width: 62px;
+}
